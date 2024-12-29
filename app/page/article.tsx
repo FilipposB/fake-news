@@ -1,0 +1,19 @@
+import { IArticle } from "../model/article.model";
+
+export default function Article ({article}: {article: IArticle})  {
+
+    return (
+        <>
+
+        <div className="grid grid-cols-1 gap-2 ">
+        <div className="mb-4 text-4xl font-extrabold  leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white">{article.title}</div>
+        <img className="rounded-lg overflow-hidden place-self-center w-3/4 mb-4" src={article.google_image_url}></img>
+        <div className="whitespace-pre-line border-t pt-2">{article.article_body}</div>
+        <div className="italic mt-2 p-2 border-t pt-2">Author:  <span className="font-extrabold ">{article.author}</span></div>
+        </div>
+       
+
+        </>
+    );
+
+}
