@@ -6,8 +6,8 @@ import { useState } from 'react';
 import Article from './page/article';
 import { IArticle } from './model/article.model';
 
-export default function Home() {
 
+export default function Home() {
   const [article, setArticle] = useState<IArticle | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +16,7 @@ export default function Home() {
       throw 'Already Loading !'
     }
     try {
-      const response = await fetch(`http://localhost:5000/api/news/${article}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/news/${article}`);
       const result: IArticle = await response.json();
       setArticle(result);
       setLoading(false);
@@ -25,7 +25,6 @@ export default function Home() {
       setLoading(false);
     }
   };
-
 
   const search = (e: any) => {
     e.preventDefault();
