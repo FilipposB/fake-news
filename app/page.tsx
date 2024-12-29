@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { IArticle } from "./model/article.model";
-import Article from "./components/article";
 import Headline from "./components/headline";
 
 
@@ -20,8 +19,8 @@ export default function Home() {
         const data: IArticle[] = await response.json();
         setArticles(data);
       } catch (err) {
-      } finally {
-      }
+        throw err
+      } 
     };
 
     fetchTopics(); // Call the fetch function on init
@@ -33,7 +32,7 @@ export default function Home() {
         This is Fake News.
       </h1>
       <p className="mt-4 text-lg md:text-xl lg:text-2xl leading-relaxed text-gray-600 dark:text-gray-300">
-        An application that generates "Fake News" using AI. Write any topic you wish in the search bar, press Enter, and enjoy!
+        An application that generates &quot;Fake News&quot; using AI. Write any topic you wish in the search bar, press Enter, and enjoy!
       </p>
       <div className="grid grid-cols-2 mt-8 gap-16">
         {articles.map(function (object, i) {

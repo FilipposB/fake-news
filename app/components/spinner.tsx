@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 interface SpinnerOverlayProps {
   show: boolean; // Controls whether the spinner is displayed
