@@ -1,5 +1,6 @@
 export interface IArticle {
-  title: string,
+  topic: string;
+  headline: string,
   author: string,
   article_body: string,
   google_image_url: string,

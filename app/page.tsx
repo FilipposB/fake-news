@@ -1,80 +1,45 @@
 'use client'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import Article from './page/article';
-import { IArticle } from './model/article.model';
-import { FormEvent } from 'react';
+import { useEffect, useState } from "react";
+import { IArticle } from "./model/article.model";
+import Article from "./components/article";
+import Headline from "./components/headline";
 
 
 export default function Home() {
-  const [article, setArticle] = useState<IArticle | null>(null);
-  const [loading, setLoading] = useState(false);
 
-  const fetchArticle = async (article: string) => {
-    if (loading) {
-      throw 'Already Loading !'
-    }
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/news/${article}`);
-      const result: IArticle = await response.json();
-      setArticle(result);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setLoading(false);
-    }
-  };
+  const [articles, setArticles] = useState<IArticle[]>([]);  // State to store the articles
 
-  const search = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchTopics = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/recent-news`); // Replace with your API URL
+        if (!response.ok) {
+          throw new Error('Failed to fetch topics');
+        }
+        const data: IArticle[] = await response.json();
+        setArticles(data);
+      } catch (err) {
+      } finally {
+      }
+    };
 
-    const formData = new FormData(e.currentTarget);
-    const searchTerm = formData.get('article') as string | null;
-
-    if (searchTerm) {
-      fetchArticle(searchTerm);
-    }
-  };
+    fetchTopics(); // Call the fetch function on init
+  }, []);
 
   return (
-    <div className="grid m-auto grid-rows-3 grid-cols-1 gap-y-4 min-h-screen container">
-      <main className="space-y-4 mt-3">
-        <div className='row-span-full justify-items-center '>
-          <form onSubmit={search}>
-            <div className="relative w-full max-w-xs items-center self-center grid ">
-              <div className="absolute left-2 w-5">
-                <button disabled={loading}
-                >
-                  <FontAwesomeIcon icon={faSearch} className='text-black' />
-                </button>
-              </div>
-              <input
-                type="text"
-                name='article'
-                className=" pl-10 pr-4 py-2 border rounded-lg text-black"
-                placeholder="Search article"
-                onChange={(e) => console.log(e)}
-                disabled={loading}
-              />
-            </div>
-          </form>
-        </div>
-
-
-        <div className="row-start-2 flex-grow p-4 h-full">
-          <div className="flex flex-col h-full">
-            {article && (
-              <Article article={article} />
-            )}
-          </div>
-        </div>
-
-      </main>
-      <footer className=" flex-grow">
-        {/* Footer content here */}
-      </footer>
+    <div className="text-center px-4 md:px-8 lg:px-16 py-8 md:py-12 lg:py-16">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
+        This is Fake News.
+      </h1>
+      <p className="mt-4 text-lg md:text-xl lg:text-2xl leading-relaxed text-gray-600 dark:text-gray-300">
+        An application that generates "Fake News" using AI. Write any topic you wish in the search bar, press Enter, and enjoy!
+      </p>
+      <div className="grid grid-cols-2 mt-8 gap-16">
+        {articles.map(function (object, i) {
+          return <Headline article={object} key={i} />;
+        })}
+      </div>
     </div>
   );
 }
