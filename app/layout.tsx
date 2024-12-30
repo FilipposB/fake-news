@@ -1,12 +1,7 @@
-"use client";
-
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
 import Link from "next/link";
+import SearchComponent from "./components/searchbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,19 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = useRouter()
-
-  const search = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const searchTerm = formData.get('article') as string | null;
-
-    if (searchTerm) {
-      router.push(`/article/${searchTerm}`)
-    }
-  };
-
   return (
 
     <html lang="en">
@@ -50,43 +32,33 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           {/* Header */}
           <header className="py-4 shadow bg-zinc-950 p-4 border-b border-white">
-  <div className="flex items-center justify-between">
-    {/* Logo */}
-    <div className="ml-2 text-4xl font-extrabold w-1/4 select-none">
-      <Link href="/" className="text-gray-900 hover:text-gray-500 dark:text-white dark:hover:text-gray-00">
-        Fake News
-      </Link>
-    </div>
+            <div className="grid grid-cols-12 items-center justify-between gap-1">
+              {/* Logo */}
+              <div className="text-nowrap center text-2xl md:text-3xl lg:text-4xl font-extrabold select-none col-start-1 col-end-1 sm:col-start-1 sm:col-end-1 md:col-end-3">
+                <div className="origin-center hover:scale-[1.01] transform-gpu">
+                  <Link href="/" className=" hover:text-gray-300 text-white ">
+                    Fake News
+                  </Link>
+                </div>
 
-    {/* Search Bar */}
-    <div className="w-full sm:w-1/2 md:w-1/3 flex justify-center">
-      <form className="relative w-full" onSubmit={search}>
-        <button
-          type="submit"
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 w-5"
-        >
-          <FontAwesomeIcon icon={faSearch} className="text-black" />
-        </button>
-        <input
-          type="text"
-          name="article"
-          placeholder="Search articles..."
-          className="w-full pl-10 pr-4 py-2 border rounded-lg text-black"
-        />
-      </form>
-    </div>
+              </div>
 
-    {/* Additional Content (if needed) */}
-    <div className="w-1/4"></div>
-  </div>
-</header>
+              {/* Search Bar */}
+              <div className="justify-center self-center col-start-6 col-end-12 sm:col-start-4 md:col-start-4 md:col-end-12 lg:col-start-4 xl:col-start-5 xl:col-end-9">
+                <SearchComponent/>
+              </div>
+
+              {/* Additional Content (if needed) */}
+              <div className="w-1/4"></div>
+            </div>
+          </header>
 
           {/* Main Content */}
           <main className="container mx-auto py-4">{children}</main>
 
           {/* Footer */}
           <footer className=" py-4 mt-auto">
-            <div className="container mx-auto text-center text-gray-600">
+            <div className="container mx-auto text-center text-gray-600 text-sm md:text-sm">
               © {new Date().getFullYear()} Fake News
             </div>
           </footer>

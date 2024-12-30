@@ -1,7 +1,7 @@
 import React from "react";
 
 interface SpinnerOverlayProps {
-  show: boolean; // Controls whether the spinner is displayed
+  show: boolean;
 }
 
 const SpinnerOverlay: React.FC<SpinnerOverlayProps> = ({ show }) => {

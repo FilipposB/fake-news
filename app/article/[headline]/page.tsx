@@ -3,13 +3,16 @@
 import { useEffect, useState, useCallback } from 'react';
 import Article from '../../components/article';
 import { IArticle } from '../../model/article.model';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import SpinnerOverlay from '@/app/components/spinner';
 
 export default function ArticlePage() {
   const [article, setArticle] = useState<IArticle | null>(null);
   const [loading, setLoading] = useState(false);
-  const { topic } = useParams<{ topic: string }>();
+  const { headline } = useParams<{ headline: string }>();
+
+  const router = useRouter()
+
 
   const fetchArticle = useCallback(async (articleTopic: string) => {
     if (loading) return;
@@ -24,6 +27,7 @@ export default function ArticlePage() {
 
       const result: IArticle = await response.json();
       setArticle(result);
+      return result
     } catch (error) {
       console.error("Error fetching data:", error);
       // Optionally show an error message to the user
@@ -33,13 +37,23 @@ export default function ArticlePage() {
   }, [loading]);
 
   useEffect(() => {
-    if (topic) {
-      if (article && article.topic === decodeURIComponent(topic)) {
+    if (headline) {
+      if (article && article.headline === decodeURIComponent(headline)) {
         return;
       }
-      fetchArticle(topic);
+
+      if (article && article.topic === decodeURIComponent(headline)){
+        router.push(`/article/${article.headline}`)
+        return;
+      }
+
+
+      fetchArticle(headline);
     }
-  }, [topic, article, fetchArticle]);
+  }, [headline, article, fetchArticle]);
+
+
+
 
   return (
     <div className="grid grid-rows-1 grid-cols-1 gap-y-4 container">

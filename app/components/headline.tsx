@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Headline({ article }: { article: IArticle }) {
   return (
     <>
-      <Link href={`/article/${article.topic}`}>
+      <Link href={`/article/${encodeURIComponent(article.headline)}`}>
         <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 transition-all p-4">
           <div className="w-full h-48 md:w-48 md:h-48 flex-shrink-0 rounded-lg overflow-hidden">
             <Image
