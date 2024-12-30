@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import debounce from 'lodash.debounce';
@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 function SearchComponent() {
     const [query, setQuery] = useState<string>("");
     const [suggestions, setSuggestions] = useState<IArticle[]>([]);
+
+    const lastTermLength = useRef(0);
 
     const router = useRouter()
 
@@ -40,13 +42,14 @@ function SearchComponent() {
             return;
         }
 
-        if (searchTerm.length > 3 && suggestions.length == 0){
+        if (searchTerm.length > 3 && suggestions.length == 0 && lastTermLength.current < searchTerm.length){
             return;
         } 
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/search?q=${encodeURIComponent(searchTerm)}`);
             const results = await response.json();
+            lastTermLength.current = searchTerm.length;
             setSuggestions(results);
         } catch (error) {
             console.error("Error fetching suggestions:", error);
