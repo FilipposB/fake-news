@@ -104,7 +104,7 @@ export default function Home() {
               {generatePageNumbers().map((pageNum) => (
                 <button
                   key={pageNum}
-                  className={`px-4 py-2 ${page === pageNum ? "bg-gray-500 text-white" : "bg-gray-200 text-gray-800"} rounded-lg`}
+                  className={`px-4 py-2 ${page === pageNum ? "bg-gray-800 text-white" : "bg-gray-200 text-gray-500"} rounded-lg`}
                   onClick={() => setPage(pageNum)}
                 >
                   {pageNum}
