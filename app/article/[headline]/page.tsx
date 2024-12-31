@@ -8,15 +8,17 @@ import SpinnerOverlay from '@/app/components/spinner';
 
 export default function ArticlePage() {
   const [article, setArticle] = useState<IArticle | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { headline } = useParams<{ headline: string }>();
   const [lastTriedArticle, setLastTriedArticle] = useState('')
+  const [initialFetch, setInitFetch] = useState(true)
 
   const router = useRouter()
 
 
   const fetchArticle = useCallback(async (articleTopic: string) => {
-    if (loading) return;
+    if (loading || initialFetch) return;
+    setInitFetch(false);
     setLoading(true);
 
     try {
