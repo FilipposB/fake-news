@@ -75,6 +75,7 @@ export default function ArticlePage() {
             {article ? (
               <Article article={article} />
             ) :
+              !loading &&
               <div className="text-center px-4 md:px-8 lg:px-16 py-8 md:py-12 lg:py-16">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
                   Error Fetching Article
