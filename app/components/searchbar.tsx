@@ -13,7 +13,7 @@ const SearchComponent: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const lastTermLength = useRef(0);
-    const dropdownRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLUListElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const router = useRouter();
@@ -85,9 +85,6 @@ const SearchComponent: React.FC = () => {
         debouncedFetchSuggestions(value);
     };
 
-    if (!dropdownRef){
-        return
-    }
 
     return (
         <form className="relative w-full" onSubmit={search}>
