@@ -17,7 +17,7 @@ export default function ArticlePage() {
 
 
   const fetchArticle = useCallback(async (articleTopic: string) => {
-    if (loading || initialFetch) return;
+    if (loading || !initialFetch) return;
     setInitFetch(false);
     setLoading(true);
 
