@@ -87,39 +87,46 @@ export default function Home() {
                 <Headline article={article} key={index} />
               ))
             ) : (
-              <p>No articles available</p> // Show a message if no articles are found
+              <p className="col-span-full text-center mt-4 text-lg md:text-xl lg:text-2xl leading-relaxed text-gray-600 dark:text-gray-300">
+                No articles available</p>
             )}
           </div>
-          <div className="mt-8 flex justify-center gap-4">
-            <button
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg"
-              onClick={handlePrevPage}
-              disabled={page === 1}
-            >
-              Previous
-            </button>
-
-            {/* Display page numbers dynamically */}
-            <div className="flex gap-2">
-              {generatePageNumbers().map((pageNum) => (
-                <button
-                  key={pageNum}
-                  className={`px-4 py-2 ${page !== pageNum ? "bg-gray-500 text-white" : "bg-gray-200 text-gray-800"} rounded-lg`}
-                  onClick={() => setPage(pageNum)}
-                >
-                  {pageNum}
-                </button>
-              ))}
+          { 
+          articles.length > 0 &&
+            (
+              <div className="mt-8 flex justify-center gap-4">
+              <button
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg"
+                onClick={handlePrevPage}
+                disabled={page === 1}
+              >
+                Previous
+              </button>
+  
+              {/* Display page numbers dynamically */}
+              <div className="flex gap-2">
+                {generatePageNumbers().map((pageNum) => (
+                  <button
+                    key={pageNum}
+                    className={`px-4 py-2 ${page !== pageNum ? "bg-gray-500 text-white" : "bg-gray-200 text-gray-800"} rounded-lg`}
+                    onClick={() => setPage(pageNum)}
+                  >
+                    {pageNum}
+                  </button>
+                ))}
+              </div>
+  
+              <button
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg"
+                onClick={handleNextPage}
+                disabled={page === totalPages}
+              >
+                Next
+              </button>
             </div>
-
-            <button
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg"
-              onClick={handleNextPage}
-              disabled={page === totalPages}
-            >
-              Next
-            </button>
-          </div>
+            )
+          }
+        
         </>
       }
     </div>
