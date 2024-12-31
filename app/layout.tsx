@@ -32,9 +32,9 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           {/* Header */}
           <header className="py-4 shadow bg-zinc-950 p-4 border-b border-white">
-            <div className="grid grid-cols-12 items-center justify-between gap-1">
+            <div className="grid grid-rows-2 sm:grid-rows-1 md:grid-rows-1 grid-cols-12 items-center justify-between sm:gap-1">
               {/* Logo */}
-              <div className="text-nowrap center text-2xl md:text-3xl lg:text-4xl font-extrabold select-none col-start-1 col-end-1 sm:col-start-1 sm:col-end-1 md:col-end-3">
+              <div className="text-nowrap center text-xl md:text-3xl lg:text-4xl font-extrabold select-none col-start-1 col-end-1 sm:col-start-1 sm:col-end-1 md:col-end-3">
                 <div className="origin-center hover:scale-[1.01] transform-gpu">
                   <Link href="/" className=" hover:text-gray-300 text-white ">
                     Fake News
@@ -44,7 +44,7 @@ export default function RootLayout({
               </div>
 
               {/* Search Bar */}
-              <div className="justify-center self-center col-start-6 col-end-12 sm:col-start-4 md:col-start-4 md:col-end-12 lg:col-start-4 xl:col-start-5 xl:col-end-9">
+              <div className="justify-center row-start-2 sm:row-start-1 self-center col-start-2 col-end-12 sm:col-start-5 md:col-start-5 md:col-end-12 lg:col-start-4 xl:col-start-5 xl:col-end-9">
                 <SearchComponent/>
               </div>
 
