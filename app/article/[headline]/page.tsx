@@ -40,12 +40,12 @@ export default function ArticlePage() {
       setLastTriedArticle(articleTopic);
       setLoading(false);
     }
-  }, [loading]);
+  }, [loading, initialFetch]);
 
   useEffect(() => {
     if (headline) {
 
-      let friendlyUrlHeadline = friendlyUrl(headline)
+      const friendlyUrlHeadline = friendlyUrl(headline)
 
       if (headline !== friendlyUrlHeadline) {
         router.push(`/article/${encodeURIComponent(friendlyUrlHeadline)}`)
@@ -70,7 +70,7 @@ export default function ArticlePage() {
 
       fetchArticle(decodeURIComponent(headline));
     }
-  }, [headline, article, fetchArticle]);
+  }, [headline, article, fetchArticle, lastTriedArticle, router]);
 
 
 
