@@ -4,17 +4,37 @@ import { IArticle } from "../model/article.model";
 export default function Article({ article }: { article: IArticle }) {
 
     return (
-        <>
+<>
+  <div className="w-full px-4 md:px-8">
+    <div className="max-w-screen-md mx-auto grid grid-cols-1 gap-6">
+      {/* Headline */}
+      <div className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white">
+        {article.headline}
+      </div>
 
-            <div className="grid grid-cols-1 gap-2 ">
-                <div className="mb-4 text-4xl font-extrabold  leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white">{article.headline}</div>
-                <Image className="rounded-lg object-contain  overflow-hidden place-self-center mb-4" src={article.google_image_url} alt={article.google_image_query} width={500} height={500}/>
-                <div className="whitespace-pre-line border-t pt-2">{article.article_body}</div>
-                <div className="italic mt-2 p-2 border-t pt-2">Author:  <span className="font-extrabold ">{article.author}</span></div>
-            </div>
+      {/* Image */}
+      <Image
+        className="rounded-lg object-contain overflow-hidden place-self-center mb-6"
+        src={article.google_image_url}
+        alt={article.google_image_query}
+        width={500}
+        height={500}
+      />
 
+      {/* Article Body */}
+      <div className="whitespace-pre-line border-t pt-4 text-left text-lg text-gray-800 dark:text-gray-200 leading-relaxed">
+        {article.article_body}
+      </div>
 
-        </>
+      {/* Author Section */}
+      <div className="italic mt-6 p-4 border-t pt-4 text-gray-700 dark:text-gray-300">
+        Author: <span className="font-extrabold">{article.author}</span>
+      </div>
+    </div>
+    
+  </div>
+</>
+
     );
 
 }

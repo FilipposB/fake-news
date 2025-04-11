@@ -6,6 +6,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import debounce from "lodash.debounce";
 import { IArticle } from "../model/article.model";
 import { useRouter } from "next/navigation";
+import { friendlyUrl } from "../util/UrlUtil";
 
 const SearchComponent: React.FC = () => {
     const [query, setQuery] = useState<string>("");
@@ -49,8 +50,10 @@ const SearchComponent: React.FC = () => {
         setQuery("");
         setSuggestions([]);
         setIsOpen(false);
-        router.push(`/article/${encodeURIComponent(headline)}`);
+        router.push(`/article/${encodeURIComponent(friendlyUrl(headline))}`);
     };
+
+
 
     const fetchSuggestions = async (searchTerm: string) => {
         if (!searchTerm || searchTerm.length < 3) {

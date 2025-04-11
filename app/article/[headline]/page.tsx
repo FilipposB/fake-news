@@ -5,6 +5,7 @@ import Article from '../../components/article';
 import { IArticle } from '../../model/article.model';
 import { useParams, useRouter } from 'next/navigation';
 import SpinnerOverlay from '@/app/components/spinner';
+import { friendlyUrl } from '@/app/util/UrlUtil';
 
 export default function ArticlePage() {
   const [article, setArticle] = useState<IArticle | null>(null);
@@ -43,6 +44,13 @@ export default function ArticlePage() {
 
   useEffect(() => {
     if (headline) {
+
+      let friendlyUrlHeadline = friendlyUrl(headline)
+
+      if (headline !== friendlyUrlHeadline) {
+        router.push(`/article/${encodeURIComponent(friendlyUrlHeadline)}`)
+        return;
+      }
 
       console.log(lastTriedArticle)
 

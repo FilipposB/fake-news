@@ -31,12 +31,12 @@ export default function RootLayout({
       >
         <div className="flex flex-col min-h-screen">
           {/* Header */}
-          <header className="py-4 shadow bg-zinc-950 p-4 border-b border-white">
+          <header className="py-4 shadow bg-zinc-950 p-4 border-b border-white sticky ">
             <div className="grid grid-rows-2 sm:grid-rows-1 md:grid-rows-1 grid-cols-12 items-center justify-between sm:gap-1">
               {/* Logo */}
               <div className="text-nowrap center text-xl md:text-3xl lg:text-4xl font-extrabold select-none col-start-1 col-end-1 sm:col-start-1 sm:col-end-1 md:col-end-3">
                 <div className="origin-center hover:scale-[1.01] transform-gpu">
-                  <Link href="/" className=" hover:text-gray-300 text-white ">
+                  <Link href="/" className=" hover:text-gray-300 text-white ml-5 ">
                     Fake News
                   </Link>
                 </div>
@@ -52,6 +52,7 @@ export default function RootLayout({
               <div className="w-1/4"></div>
             </div>
           </header>
+          
 
           {/* Main Content */}
           <main className="container mx-auto py-4">{children}</main>

@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { IArticle } from "./model/article.model";
 import Headline from "./components/headline";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 export default function Home() {
   const [articles, setArticles] = useState<IArticle[]>([]); // State to store articles
   const [loading, setLoading] = useState<boolean>(true); // Loading state
@@ -81,7 +83,7 @@ export default function Home() {
       </p>
       {!loading &&
         <>
-          <div className="grid justify-center justify-items-center grid-cols-1 xl:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 mt-8 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+          <div className="grid justify-center justify-items-center grid-cols-1 xl:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 mt-8 gap-4 sm:gap-6 md:gap-8 lg:gap-4">
             {articles.length > 0 ? (
               articles.map((article, index) => (
                 <Headline article={article} key={index} />
@@ -91,42 +93,42 @@ export default function Home() {
                 No articles available</p>
             )}
           </div>
-          { 
-          articles.length > 0 &&
+          {
+            articles.length > 0 &&
             (
               <div className="mt-8 flex justify-center gap-4">
-              <button
-                className="px-4 py-2 bg-gray-500 text-white rounded-lg"
-                onClick={handlePrevPage}
-                disabled={page === 1}
-              >
-                Previous
-              </button>
-  
-              {/* Display page numbers dynamically */}
-              <div className="flex gap-2">
-                {generatePageNumbers().map((pageNum) => (
-                  <button
-                    key={pageNum}
-                    className={`px-4 py-2 ${page !== pageNum ? "bg-gray-500 text-white" : "bg-gray-200 text-gray-800"} rounded-lg`}
-                    onClick={() => setPage(pageNum)}
-                  >
-                    {pageNum}
-                  </button>
-                ))}
+                <button
+                  className="px-4 py-2 bg-gray-500 text-white rounded-lg "
+                  onClick={handlePrevPage}
+                  disabled={page === 1}
+                >
+                  <FontAwesomeIcon icon={faArrowLeft} className="text-white  align-middle" />
+                </button>
+
+                {/* Display page numbers dynamically */}
+                <div className="flex gap-2">
+                  {generatePageNumbers().map((pageNum) => (
+                    <button
+                      key={pageNum}
+                      className={`px-4 py-2 ${page !== pageNum ? "bg-gray-500 text-white" : "bg-gray-200 text-gray-800"} rounded-lg text-center`}
+                      onClick={() => setPage(pageNum)}
+                    >
+                      {pageNum}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  className="px-4 py-2 bg-gray-500 text-white rounded-lg"
+                  onClick={handleNextPage}
+                  disabled={page === totalPages}
+                >
+                  <FontAwesomeIcon icon={faArrowRight} className="text-white  align-middle" />
+                </button>
               </div>
-  
-              <button
-                className="px-4 py-2 bg-gray-500 text-white rounded-lg"
-                onClick={handleNextPage}
-                disabled={page === totalPages}
-              >
-                Next
-              </button>
-            </div>
             )
           }
-        
+
         </>
       }
     </div>
