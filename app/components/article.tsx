@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { IArticle } from "../model/article.model";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown, faComment, faX } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faThumbsDown, faX } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { useState } from "react";
 
