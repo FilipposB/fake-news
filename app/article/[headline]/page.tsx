@@ -43,35 +43,31 @@ export default function ArticlePage() {
   }, [loading, initialFetch]);
 
   useEffect(() => {
-    if (headline) {
-
-      const friendlyUrlHeadline = friendlyUrl(headline)
-
-      if (headline !== friendlyUrlHeadline) {
-        router.push(`/article/${encodeURIComponent(friendlyUrlHeadline)}`)
-        return;
-      }
-
-      console.log(lastTriedArticle)
-
-      if (lastTriedArticle === decodeURIComponent(headline)) {
-        return;
-      }
-
-      if (article && article.headline === decodeURIComponent(headline)) {
-        return;
-      }
-
-      if (article && article.topic === decodeURIComponent(headline)) {
-        router.push(`/article/${article.headline}`)
-        return;
-      }
-
-
-      fetchArticle(decodeURIComponent(headline));
+    if (!headline) return;
+  
+    const decodedHeadline = decodeURIComponent(headline);
+    const friendlyHeadline = friendlyUrl(decodedHeadline);
+  
+    // Already on the correct friendly URL
+    if (headline !== friendlyHeadline) {
+      router.push(`/article/${encodeURIComponent(friendlyHeadline)}`);
+      return;
     }
+  
+    // Already tried to fetch this
+    if (lastTriedArticle === decodedHeadline) return;
+  
+    // Already have the correct article
+    if (article?.headline === decodedHeadline) return;
+  
+    // Redirect from topic match to actual headline
+    if (article?.topic === decodedHeadline) {
+      router.push(`/article/${encodeURIComponent(article.headline)}`);
+      return;
+    }
+  
+    fetchArticle(decodedHeadline);
   }, [headline, article, fetchArticle, lastTriedArticle, router]);
-
 
 
 

@@ -7,6 +7,7 @@ import debounce from "lodash.debounce";
 import { IArticle } from "../model/article.model";
 import { useRouter } from "next/navigation";
 import { friendlyUrl } from "../util/UrlUtil";
+import Image from "next/image";
 
 const SearchComponent: React.FC = () => {
     const [query, setQuery] = useState<string>("");
@@ -116,9 +117,19 @@ const SearchComponent: React.FC = () => {
                         <li
                             key={index}
                             className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
-                            onClick={() => fetchSelect(suggestion.headline)}
+                            onClick={() => fetchSelect(suggestion.topic)}
                         >
+                            <div className=" flex items-center gap-2 overflow-hidden">
+                            <Image
+                                      className="object-contain"
+                                      src={suggestion.google_image_url}
+                                      alt={suggestion.google_image_query}
+                                      width={32}
+                                      height={32}
+                                    />
                             {suggestion.headline}
+                            </div>
+                        
                         </li>
                     ))}
                 </ul>
